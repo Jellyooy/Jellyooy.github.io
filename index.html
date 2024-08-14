@@ -1,1 +1,88 @@
-<h1>这里是Yu_Ming小可爱的网站</h1>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yu_Ming小可爱的网站</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            height: 100%;
+        }
+        video {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            z-index: -1;
+        }
+        .container {
+            position: relative;
+            z-index: 1;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            margin: 50px auto;
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+        }
+        p {
+            color: #666;
+        }
+        img {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 50%; /* 可选：使图片变成圆形 */
+        }
+        #hitokoto {
+            font-style: italic;
+            color: #444;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <video autoplay loop muted>
+        <source src="https://t.alcy.cc/acg" type="video/mp4">
+        您的浏览器不支持视频标签。
+    </video>
+    <div class="container">
+        <h1>欢迎来到Yu_Ming小可爱的网站</h1>
+        <p>这里是一个充满欢乐和爱的地方！</p>
+        <img src="https://t.alcy.cc/tx" alt="Yu_Ming小可爱">
+        <p>希望你喜欢这里，每天都开心快乐！</p>
+        <div id="hitokoto-container">
+            <span>随机一言</span>
+            <div id="hitokoto"></div>
+        </div>
+    </div>
+
+    <script>
+        function fetchHitokoto() {
+            fetch('https://v1.hitokoto.cn/?c=a&c=b')
+                .then(response => response.json())
+                .then(data => {
+                    const hitokotoElement = document.getElementById('hitokoto');
+                    hitokotoElement.textContent = `“${data.hitokoto}” —— ${data.from}`;
+                })
+                .catch(error => {
+                    console.error('获取一言失败:', error);
+                });
+        }
+
+        // 首次加载一言
+        fetchHitokoto();
+
+        // 每10秒刷新一言
+        setInterval(fetchHitokoto, 10000);
+    </script>
+</body>
+</html>
